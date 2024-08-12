@@ -1,0 +1,198 @@
+{
+  "info": {
+    "_postman_id": "75d3d34a-fcd3-438c-9fbe-4e7b72d17095",
+    "name": "CoverLetter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CoverLetterTemplate",
+      "item": [
+        {
+          "name": "GetCoverLetterTemplates",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{draci_url}}/api/cover-letters/templates/order/{{order_id}}?tenant-id=TuevNordAutoService",
+              "host": [
+                "{{draci_url}}"
+              ],
+              "path": [
+                "api",
+                "cover-letters",
+                "templates",
+                "order",
+                "{{order_id}}"
+              ],
+              "query": [
+                {
+                  "key": "tenant-id",
+                  "value": "TuevNordAutoService"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetCoverLetterTemplateById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{draci_url}}/api/cover-letters/templates/{{templateId}}/order/{{orderId}}",
+              "host": [
+                "{{draci_url}}"
+              ],
+              "path": [
+                "api",
+                "cover-letters",
+                "templates",
+                "{{templateId}}",
+                "order",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Generate cover letter",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"fileName\" : \"cover-letter-template-from-postman\",\n    \"content\" : \"Halter->Versicherung (vehicle owner -> insurance):\\n<p><br><br><br><strong>{Auftragsart}</strong><br><br>Sehr geehrte/r<strong> {Auftraggeber Anrede} {Auftraggeber Nachname},</strong><br><br>anbei übersenden wir Ihnen in der Anlage ein Duplikat Ihres Gutachtens zur Kenntnisnahme.<br>Das Originalgutachten wurde von uns an die gegnerische Versicherung weitergeleitet.<br>Bei Rückfragen stehen wir Ihnen gerne zur Verfügung.<br><br>Für das entgegengebrachte Vertrauen bedanken wir uns und hoffen, dass Sie mit unseren Leistungen zufrieden sind.<br><br><strong>Über eine Weiterempfehlung würden wir uns freuen!</strong><br><br>Unser Leistungsangebot umfasst:<br>•\\tHaftpflicht- und Kaskoschadengutachten<br>•\\tFahrzeugbewertungen / Wertgutachten<br>•\\tTechnische Gutachten / Unfallrekonstruktionen<br>•\\tGutachten zur Beweissicherung<br>•\\tKostenvoranschläge<br><br>Mit freundlichen Grüßen<br><br>der bearbeitende Sachverständige<br><strong>{Bearbeiter Vorname} {Bearbeiter Nachname}</strong><br></p>\\n\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{draci_url}}/api/cover-letters/:orderId/generate",
+          "host": [
+            "{{draci_url}}"
+          ],
+          "path": [
+            "api",
+            "cover-letters",
+            ":orderId",
+            "generate"
+          ],
+          "variable": [
+            {
+              "key": "orderId",
+              "value": "test"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "password",
+        "value": "{{oidc_password}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{oidc_username}}",
+        "type": "string"
+      },
+      {
+        "key": "clientSecret",
+        "value": "{{oidc_client_secret}}",
+        "type": "string"
+      },
+      {
+        "key": "clientId",
+        "value": "{{oidc_client_id}}",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "{{oidc_server}}",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials",
+        "type": "string"
+      },
+      {
+        "key": "tokenName",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "addTokenTo",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "draci_url",
+      "value": "localhost:8089",
+      "type": "default"
+    }
+  ]
+}
